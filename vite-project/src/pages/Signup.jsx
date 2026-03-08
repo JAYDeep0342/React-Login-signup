@@ -1,59 +1,80 @@
 import React, { useState } from "react";
-import InputField from "../components/InputField";
-import Button from "../components/Button";
 
 function Signup() {
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name,setName] = useState("");
+  const [email,setEmail] = useState("");
+  const [username,setUsername] = useState("");
+  const [password,setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
-    console.log(name, email, password);
+
+    try {
+
+      await signupApi({
+        name: name,
+        email: email,
+        username: username,
+        password: password
+      });
+
+      alert("Signup Success");
+
+    } catch (error) {
+
+      alert("Signup Failed");
+
+    }
+
   };
 
   return (
-    <div>
 
-      <h2>Signup Page</h2>
+    <div className="flex justify-center mt-20">
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg w-80">
 
-        <InputField
+        <h2 className="text-2xl mb-4">Signup</h2>
+
+        <input
           type="text"
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          className="border p-2 w-full mb-3"
+          onChange={(e)=>setName(e.target.value)}
         />
 
-        <br />
-
-        <InputField
+        <input
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          className="border p-2 w-full mb-3"
+          onChange={(e)=>setEmail(e.target.value)}
         />
 
-        <br />
+        <input
+          type="text"
+          placeholder="Username"
+          className="border p-2 w-full mb-3"
+          onChange={(e)=>setUsername(e.target.value)}
+        />
 
-        <InputField
+        <input
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          className="border p-2 w-full mb-3"
+          onChange={(e)=>setPassword(e.target.value)}
         />
 
-        <br />
-
-        <Button title="Signup" />
+        <button className="bg-green-500 text-white w-full py-2">
+          Signup
+        </button>
 
       </form>
 
     </div>
-  );
 
+  );
 }
 
 export default Signup;

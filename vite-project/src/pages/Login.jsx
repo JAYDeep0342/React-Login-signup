@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { loginApi } from "../services/authService";
+import Navbar from "../components/Navbar";
 
 function Login() {
 
@@ -34,7 +35,8 @@ function Login() {
   };
 
   return (
-
+<div>
+  <Navbar/>
     <div className="flex justify-center items-center h-screen bg-gray-100">
 
       <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg rounded w-80">
@@ -66,6 +68,7 @@ function Login() {
 
       </form>
 
+    </div>
     </div>
 
   );

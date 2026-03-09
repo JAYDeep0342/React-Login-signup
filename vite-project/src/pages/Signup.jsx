@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Navbar from "../components/Navbar";
+import { signupApi } from "../services/authService";
 function Signup() {
 
   const [name,setName] = useState("");
@@ -23,7 +24,7 @@ function Signup() {
       alert("Signup Success");
 
     } catch (error) {
-
+       console.log(error);
       alert("Signup Failed");
 
     }
@@ -31,6 +32,9 @@ function Signup() {
   };
 
   return (
+    <div>
+
+   <Navbar/>
 
     <div className="flex justify-center mt-20">
 
@@ -73,6 +77,7 @@ function Signup() {
       </form>
 
     </div>
+     </div>
 
   );
 }

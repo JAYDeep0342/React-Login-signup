@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { loginApi } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function Login() {
+
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,12 +21,24 @@ function Login() {
         password
       });
 
-      console.log(response.data);
+      const data = response.data;
 
-      localStorage.setItem("token", response.data.Jwt);
-      localStorage.setItem("userid", response.data.userid);
 
-      alert("Login Success");
+      const role = data.roles[0];   
+
+      localStorage.setItem("token", data.Jwt);
+      localStorage.setItem("userid", data.userid);
+      localStorage.setItem("role", role);
+        
+      if(role === "SUPER_ADMIN"){
+        navigate("/create-admin");
+      }
+      else if(role === "ADMIN"){
+        navigate("/admin-dashboard");
+      }
+      else{
+        navigate("/user-dashboard");
+      }
 
     } catch (error) {
 
@@ -35,42 +50,42 @@ function Login() {
   };
 
   return (
-<div>
-  <Navbar/>
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div>
+      <Navbar/>
 
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg rounded w-80">
+      <div className="flex justify-center items-center h-screen bg-gray-100">
 
-        <h2 className="text-2xl mb-4 text-center font-bold">Login</h2>
+        <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg rounded w-80">
 
-        <input
-          type="text"
-          placeholder="Username"
-          className="border p-2 w-full mb-3 rounded"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          <h2 className="text-2xl mb-4 text-center font-bold">Login</h2>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="border p-2 w-full mb-3 rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="text"
+            placeholder="Username"
+            className="border p-2 w-full mb-3 rounded"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-        <button
-          type="submit"
-          className="bg-blue-500 text-white w-full py-2 rounded"
-        >
-          Login
-        </button>
+          <input
+            type="password"
+            placeholder="Password"
+            className="border p-2 w-full mb-3 rounded"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      </form>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white w-full py-2 rounded"
+          >
+            Login
+          </button>
 
+        </form>
+
+      </div>
     </div>
-    </div>
-
   );
 }
 

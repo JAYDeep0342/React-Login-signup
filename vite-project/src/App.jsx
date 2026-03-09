@@ -5,7 +5,9 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-
+import CreateAdmin from "./pages/CreateAdmin";
+import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
 
@@ -23,6 +25,11 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/signup" element={<Signup />} />
+        <Route path="/create-admin" element={<CreateAdmin />} />
+
+       <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+       <Route path="/user-dashboard" element={<UserDashboard />} />
 
       </Routes>
 
